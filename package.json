@@ -1,0 +1,50 @@
+{
+  "name": "@nd0ut/ubiquitous-guacamole",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/ubiquitous-guacamole.cjs.js",
+  "module": "dist/ubiquitous-guacamole.esm.js",
+  "browser": "dist/ubiquitous-guacamole.umd.js",
+  "scripts": {
+    "build": "rollup -c",
+    "prebuild": "npm run flow && npm run lint && npm run test",
+    "dev": "rollup -c -w",
+    "flow": "flow src",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "./node_modules/.bin/eslint src/*",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nd0ut/ubiquitous-guacamole.git"
+  },
+  "author": "nd0ut",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nd0ut/ubiquitous-guacamole/issues"
+  },
+  "homepage": "https://github.com/nd0ut/ubiquitous-guacamole#readme",
+  "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "eslint": "^4.18.1",
+    "eslint-plugin-flowtype": "^2.46.1",
+    "flow-remove-types": "^1.2.3",
+    "jest": "^22.4.2",
+    "jest-flow-transform": "^1.0.1",
+    "prettier": "^1.11.1",
+    "prettierrc": "0.0.0-5",
+    "rollup": "^0.56.3",
+    "rollup-plugin-commonjs": "^8.3.0",
+    "rollup-plugin-flow": "^1.1.1",
+    "rollup-plugin-node-resolve": "^3.0.3"
+  },
+  "files":[
+    "dist"
+  ],
+  "jest": {
+    "transform": {
+      "^.+\\.js$": "<rootDir>/jest-flow-transformer.js"
+    }
+  }
+}
