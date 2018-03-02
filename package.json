@@ -27,13 +27,13 @@
   "homepage": "https://github.com/nd0ut/ubiquitous-guacamole#readme",
   "devDependencies": {
     "babel-eslint": "^8.2.2",
+    "canvas-prebuilt": "^1.6.5-prerelease.1",
     "eslint": "^4.18.1",
     "eslint-plugin-flowtype": "^2.46.1",
     "eslint-plugin-jest": "^21.12.2",
     "flow-remove-types": "^1.2.3",
-    "htmlimage": "^1.1.0",
     "jest": "^22.4.2",
-    "jest-flow-transform": "^1.0.1",
+    "jsdom": "^11.6.2",
     "prettier": "^1.11.1",
     "prettierrc": "0.0.0-5",
     "rollup": "^0.56.3",
@@ -47,6 +47,9 @@
   "jest": {
     "transform": {
       "^.+\\.js$": "<rootDir>/jest-flow-transformer.js"
+    },
+    "testEnvironmentOptions": {
+      "resources": "usable"
     }
   }
 }
