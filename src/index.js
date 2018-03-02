@@ -1,3 +1,3 @@
-const square = require('./square');
+const loadImages = require('./loadImages');
 
-module.exports = square;
+module.exports = loadImages;
