@@ -30,6 +30,11 @@ module.exports = function(config) {
     expressServer: {
       port: 9877,
       extensions: [imageServer]
+    },
+    client: {
+      mocha: {
+        timeout : 6000
+      }
     }
   });
 };
