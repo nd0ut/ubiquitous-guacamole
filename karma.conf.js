@@ -7,7 +7,13 @@ process.env.CHROME_BIN = require('puppeteer').executablePath();
 
 module.exports = function(config) {
   config.set({
-    browsers: ['ChromeHeadless'],
+    browsers: ['ChromeHeadlessNoSandbox'],
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox --disable-setuid-sandbox']
+      }
+    },
     plugins: [
       require('karma-chrome-launcher'),
       require('karma-mocha'),
