@@ -1,30 +1,15 @@
-const nock = require('nock');
-
-const baseUrl = 'http://mock-server.com';
-const scope = nock(baseUrl);
+const baseUrl = 'http://localhost:9877';
 let counter = 0;
 
-const getPath = () => `/image/${++counter}.png`;
+const getPath = (type, delay) => `/image/${type}/${++counter}.png?delay=${delay}`;
 
 function validUrl(loadTime = 1000) {
-  const path = getPath();
-
-  scope
-    .get(path)
-    .socketDelay(loadTime)
-    .replyWithFile(200, __dirname + '/images/1.png', { 'Content-Type': 'image/png' });
-
+  const path = getPath('valid', loadTime);
   return baseUrl + path;
 }
 
-function invalidUrl(loadTime = 1000) {
-  const path = getPath();
-
-  scope
-    .get(path)
-    .socketDelay(loadTime)
-    .reply(200, 'Not found');
-
+function invalidUrl(type, loadTime = 1000) {
+  const path = getPath(type, loadTime);
   return baseUrl + path;
 }
 
@@ -35,8 +20,8 @@ function validImg(srcDelay = 1000, loadTime = 1000) {
   return img;
 }
 
-function invalidImg(srcDelay = 1000, loadTime = 1000) {
-  const url = invalidUrl(loadTime);
+function invalidImg(type, srcDelay = 1000, loadTime = 1000) {
+  const url = invalidUrl(type, loadTime);
   const img = new Image();
   setTimeout(() => (img.src = url), srcDelay);
   return img;

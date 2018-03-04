@@ -10,8 +10,8 @@
     "prebuild": "npm run flow && npm run lint && npm run test",
     "dev": "rollup -c -w",
     "flow": "flow src",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "karma start --single-run",
+    "test:watch": "karma start",
     "lint": "./node_modules/.bin/eslint src/*",
     "prepublishOnly": "npm run build"
   },
@@ -27,27 +27,27 @@
   "homepage": "https://github.com/nd0ut/ubiquitous-guacamole#readme",
   "devDependencies": {
     "babel-eslint": "^8.2.2",
-    "canvas-prebuilt": "^1.6.5-prerelease.1",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^4.18.1",
     "eslint-plugin-flowtype": "^2.46.1",
-    "eslint-plugin-jest": "^21.12.2",
+    "express": "^4.16.2",
     "flow-remove-types": "^1.2.3",
-    "jest": "^22.4.2",
-    "jsdom": "file:../jsdom",
-    "nock": "^9.2.3",
+    "karma": "^2.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-express-server": "^0.1.4",
+    "karma-mocha": "^1.3.0",
+    "mocha": "^5.0.1",
     "prettier": "^1.11.1",
     "prettierrc": "0.0.0-5",
+    "puppeteer": "^1.1.1",
     "rollup": "^0.56.3",
     "rollup-plugin-commonjs": "^8.3.0",
     "rollup-plugin-flow": "^1.1.1",
-    "rollup-plugin-node-resolve": "^3.0.3"
+    "rollup-plugin-node-resolve": "^3.0.3",
+    "karma-rollup-preprocessor": "^5.1.1"
   },
   "files": [
     "dist"
-  ],
-  "jest": {
-    "transform": {
-      "^.+\\.js$": "<rootDir>/jest-flow-transformer.js"
-    }
-  }
+  ]
 }
