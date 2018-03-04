@@ -1,9 +1,16 @@
+os:
+  - linux
 dist: trusty
 addons:
   chrome: stable
 
-os:
-- linux
 language: node_js
 node_js:
-- '8'
+  - '8'
+
+deploy:
+  provider: npm
+  email: "nd0ut.me@gmail.com"
+  api_key: "c3DOsn5ZEE9INA3LB7bIPHuyPzLg6vLCKJno3kBZ244FmO2fS3s4qDVz/x2jeFlB9x/OTrX55S9vWUhukbb6R/teM8WqcEgX5zfKiABX1oBJ6MdzcuWs1M7Jt7CljAui/6VgJfFW3cRl/q7K3Ve8GhIh0uWGWLWNBCO5AQb6gZphQor9taHX4t5p5Nd7+ZQGy3rlCYNgrjJSRknSlpmTduMqqj4/iP8fbf+exp1w1vajAm4kneKu/LBR2legv1yP7gqOIQdmFwgiO5l3jHVBO4IgKeL7HZN3UCrz2yE4aTCRyyJxNJ3Wvphz+nidMLBZoUXBW/IYXSBvhLRceQ2qn/J4UZCilCb4pur4a3CNKBNTF3R2octB0N/F0FNxUFXlLlrqJU7Pq4T/tmLxoNw5TCC5af4sAJdWtHekBEBd5l3VHUPy6HtzNjk09FdDdyALYq8fBO54SI1GTc/czF4BTzYqJOheOruPfyfDo3NRYctKCvLIYK70gBXLYs9M6xHzqDt8gq6vSDdcJQNJsJYP2UQBZRcMLpLThaG+/6l+awVpkOkgrlKIEDQ4PFMOyCuTUNevDjkqsILL0d3qmXfeMUBpe4Rd1gerENIrt/2KoN/NFVDtl60py1mowFElBCQ19E4+N7bSE3De6rkETHG9j18vIIj7kiITsByah6gnu5E="
+  on:
+    tags: true
