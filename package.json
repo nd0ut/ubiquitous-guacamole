@@ -9,7 +9,7 @@
     "build": "rollup -c",
     "prebuild": "npm run flow && npm run lint && npm run test",
     "dev": "rollup -c -w",
-    "flow": "flow src",
+    "flow": "./node_modules/.bin/flow src",
     "test": "karma start --single-run",
     "test:watch": "karma start",
     "lint": "./node_modules/.bin/eslint src/*",
