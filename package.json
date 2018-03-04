@@ -32,11 +32,13 @@
     "eslint": "^4.18.1",
     "eslint-plugin-flowtype": "^2.46.1",
     "express": "^4.16.2",
+    "flow-bin": "^0.66.0",
     "flow-remove-types": "^1.2.3",
     "karma": "^2.0.0",
     "karma-chrome-launcher": "^2.2.0",
     "karma-express-server": "^0.1.4",
     "karma-mocha": "^1.3.0",
+    "karma-rollup-preprocessor": "^5.1.1",
     "mocha": "^5.0.1",
     "prettier": "^1.11.1",
     "prettierrc": "0.0.0-5",
@@ -44,8 +46,7 @@
     "rollup": "^0.56.3",
     "rollup-plugin-commonjs": "^8.3.0",
     "rollup-plugin-flow": "^1.1.1",
-    "rollup-plugin-node-resolve": "^3.0.3",
-    "karma-rollup-preprocessor": "^5.1.1"
+    "rollup-plugin-node-resolve": "^3.0.3"
   },
   "files": [
     "dist"
