@@ -13,7 +13,8 @@
     "test": "karma start --single-run",
     "test:watch": "karma start",
     "lint": "./node_modules/.bin/eslint src/*",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "demo": "git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
     "type": "git",
