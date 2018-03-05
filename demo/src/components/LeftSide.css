@@ -1,0 +1,17 @@
+.left-side {
+  padding: 0px 50px;
+  height: 100%;
+  background-color: rgb(236, 236, 236);
+}
+
+.left-side__title {
+  padding: 20px 0px;
+  font-size: 40px;
+  font-weight: 100px;
+}
+
+.left-side__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
