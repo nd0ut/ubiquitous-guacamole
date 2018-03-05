@@ -1,15 +1,14 @@
 os: osx
 addons:
   chrome: stable
-
 language: node_js
 node_js:
-  - '8'
-
+- '8'
 deploy:
   provider: npm
-  email: "nd0ut.me@gmail.com"
-  api_key: "c3DOsn5ZEE9INA3LB7bIPHuyPzLg6vLCKJno3kBZ244FmO2fS3s4qDVz/x2jeFlB9x/OTrX55S9vWUhukbb6R/teM8WqcEgX5zfKiABX1oBJ6MdzcuWs1M7Jt7CljAui/6VgJfFW3cRl/q7K3Ve8GhIh0uWGWLWNBCO5AQb6gZphQor9taHX4t5p5Nd7+ZQGy3rlCYNgrjJSRknSlpmTduMqqj4/iP8fbf+exp1w1vajAm4kneKu/LBR2legv1yP7gqOIQdmFwgiO5l3jHVBO4IgKeL7HZN3UCrz2yE4aTCRyyJxNJ3Wvphz+nidMLBZoUXBW/IYXSBvhLRceQ2qn/J4UZCilCb4pur4a3CNKBNTF3R2octB0N/F0FNxUFXlLlrqJU7Pq4T/tmLxoNw5TCC5af4sAJdWtHekBEBd5l3VHUPy6HtzNjk09FdDdyALYq8fBO54SI1GTc/czF4BTzYqJOheOruPfyfDo3NRYctKCvLIYK70gBXLYs9M6xHzqDt8gq6vSDdcJQNJsJYP2UQBZRcMLpLThaG+/6l+awVpkOkgrlKIEDQ4PFMOyCuTUNevDjkqsILL0d3qmXfeMUBpe4Rd1gerENIrt/2KoN/NFVDtl60py1mowFElBCQ19E4+N7bSE3De6rkETHG9j18vIIj7kiITsByah6gnu5E="
+  email: nd0ut.me@gmail.com
+  api_key:
+    secure: A7EFBEHn8uQmconCTdWggOd4loxCIfA0Zrd1LLmmCgERMFxQJUTvKXDcEJbDzeIrEzdcErI6O17awLYlt8I+d/6XXxzFhUZIk9idYodRWCbLxNFb7m8j9T7lkl8ykTTO4cS3O1YCVG12Jg1B0bly4bqDPV+/KD3mq0sUYoFn0v73o9LdPP6ETQYVeWufLEdNv/dynSLO+l8LTNYazCv2TM/pB+rRT6XCajeYYXefZZmnLfRUyFLc7ttL6moSFZKpUG1hUEZ8mIkPfbHeb0pVUrFP1ODcAlzxf+dGV6N8OO9haWrqlYMEkctXzmSlbaCQEXTQEXCFUXbW2wB1N4tH1VSIzF81vwSlZJHo0lnMn5/fGGn9JQbNyKCT59dc+guG2UGLb05keH6d1mF9smnjhTLqej71/d0/DB9E+72qdEc3ozeyXFrcea8hiWQoT+g6Jrqqcyhdvun4npY9vXibpazENpV1Y5LcMulndhav76FnJ+aF6PKRBlTdtaHeyu6zGLe/Esp0+koOijLUUvAMZeY/olokJHd0IKNmZvsVEPYYWbz6JMRruCAkqwU/WIpPJnxrjndr49sWURcj30oxVjH/xm4Bx6cQEc1B8UdQ3P6JTbF8qBK5sVzSXp1HExXvRhOwx7Kvchri++ae2Kl0K55SIPpXO1+HGwHYYGGXf7o=
   skip_cleanup: true
   on:
     tags: true
