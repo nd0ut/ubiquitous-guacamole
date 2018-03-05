@@ -1,5 +1,13 @@
+<div align="center">
+  <a href="https://github.com/webpack/webpack">
+    <img width="250" height="200" src="https://github.com/nd0ut/ubiquitous-guacamole/raw/master/logo.png">
+  </a>
+</div>
+
 # Ubiquitous Guacamole [![Build Status](https://travis-ci.org/nd0ut/ubiquitous-guacamole.svg?branch=master)](https://travis-ci.org/nd0ut/ubiquitous-guacamole)
 > Perhaps the best image preloader on Earth.
+
+
 
 [Demo](https://nd0ut.github.io/ubiquitous-guacamole/)
 
