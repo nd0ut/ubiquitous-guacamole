@@ -11,7 +11,9 @@
 
 
 
-[Demo](https://nd0ut.github.io/ubiquitous-guacamole/)
+[Demo](https://nd0ut.github.io/ubiquitous-guacamole/) 
+
+[![Edit ubiquitous-guacamole-demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/nd0ut/ubiquitous-guacamole/tree/master/demo)
 
 ## Install
 Just run
