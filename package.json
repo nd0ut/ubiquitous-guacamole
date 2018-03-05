@@ -1,6 +1,6 @@
 {
   "name": "@nd0ut/ubiquitous-guacamole",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "main": "dist/ubiquitous-guacamole.cjs.js",
   "module": "dist/ubiquitous-guacamole.esm.js",
