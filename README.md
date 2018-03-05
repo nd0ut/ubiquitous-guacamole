@@ -4,7 +4,9 @@
   </a>
 </div>
 
-# Ubiquitous Guacamole [![Build Status](https://travis-ci.org/nd0ut/ubiquitous-guacamole.svg?branch=master)](https://travis-ci.org/nd0ut/ubiquitous-guacamole)
+# Ubiquitous Guacamole
+[![Build Status](https://travis-ci.org/nd0ut/ubiquitous-guacamole.svg?branch=master)](https://travis-ci.org/nd0ut/ubiquitous-guacamole)
+[![npm version](https://badge.fury.io/js/%40nd0ut%2Fubiquitous-guacamole.svg)](https://badge.fury.io/js/%40nd0ut%2Fubiquitous-guacamole)
 > Perhaps the best image preloader on Earth.
 
 
