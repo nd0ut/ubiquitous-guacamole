@@ -25,6 +25,7 @@ class LeftSide extends Component {
           onChange={this.props.onInputChange}
           value={this.props.input}
           width={''}
+          editorProps={{$blockScrolling: true}}
         />
       </div>
     );
