@@ -1,6 +1,6 @@
 const StateEnum = {
-  SUCCESS: Symbol('success'),
-  FAILED: Symbol('failed')
+  COMPLETELY_AVAILABLE: 'completely_available',
+  BROKEN: 'broken'
 };
 
 const State = new Proxy(StateEnum, {
@@ -17,19 +17,19 @@ const State = new Proxy(StateEnum, {
 type StateType = $Values<typeof StateEnum>;
 type ReturnItem = [HTMLImageElement, StateType];
 
-function isNotStarted(img: HTMLImageElement): boolean {
+function isUnavailable(img: HTMLImageElement): boolean {
   return img.src === '' && img.complete;
 }
 
-function isLoading(img: HTMLImageElement): boolean {
+function isPartiallyAvailable(img: HTMLImageElement): boolean {
   return img.src !== '' && !img.complete;
 }
 
-function isLoaded(img: HTMLImageElement): boolean {
+function isCompletelyAvailable(img: HTMLImageElement): boolean {
   return img.src !== '' && img.complete && img.naturalWidth !== 0 && img.naturalHeight !== 0;
 }
 
-function isFailed(img: HTMLImageElement): boolean {
+function isBroken(img: HTMLImageElement): boolean {
   return img.src !== '' && img.complete && img.naturalWidth === 0 && img.naturalHeight === 0;
 }
 
@@ -48,16 +48,16 @@ function normalizeInput(input: Array<string | HTMLImageElement>): HTMLImageEleme
 
 async function waitForReady(img: HTMLImageElement): Promise<ReturnItem> {
   return new Promise(resolve => {
-    if (isNotStarted(img) || isLoading(img)) {
-      img.addEventListener('load', () => resolve([img, State.SUCCESS]), { once: true });
-      img.addEventListener('error', () => resolve([img, State.FAILED]), { once: true });
-    } else if (isLoaded(img)) {
-      resolve([img, State.SUCCESS]);
-    } else if (isFailed(img)) {
-      resolve([img, State.FAILED]);
+    if (isUnavailable(img) || isPartiallyAvailable(img)) {
+      img.addEventListener('load', () => resolve([img, State.COMPLETELY_AVAILABLE]), { once: true });
+      img.addEventListener('error', () => resolve([img, State.BROKEN]), { once: true });
+    } else if (isCompletelyAvailable(img)) {
+      resolve([img, State.COMPLETELY_AVAILABLE]);
+    } else if (isBroken(img)) {
+      resolve([img, State.BROKEN]);
     } else {
       console.warn('Unhandled HTMLImageElement state.');
-      resolve([img, State.FAILED]);
+      resolve([img, State.BROKEN]);
     }
   });
 }
@@ -67,9 +67,9 @@ async function loadImages(input: Array<string | HTMLImageElement>): Promise<Retu
   const waiters = images.map(waitForReady);
 
   const returnItems = await Promise.all(waiters);
-  const anyFailed = returnItems.some(item => item[1] === State.FAILED);
+  const anyBroken = returnItems.some(item => item[1] === State.BROKEN);
 
-  if (anyFailed) {
+  if (anyBroken) {
     throw returnItems;
   } else {
     return returnItems;

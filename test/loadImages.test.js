@@ -21,7 +21,7 @@ it('should accept both strings and Image objects', async function() {
   await expect(loadImages(input)).be.fulfilled;
 });
 
-it("should return images and it's states", async function() {
+it('should return images and it\'s states', async function() {
   const input = [
     inputFactory.validUrl(),
     inputFactory.invalidUrl(),
@@ -33,28 +33,28 @@ it("should return images and it's states", async function() {
   expect(result).to.be.an('array');
 
   expect(result[0][0] instanceof Image).to.be.true;
-  expect(result[0][1]).to.equal(loadImages.State.SUCCESS);
+  expect(result[0][1]).to.equal(loadImages.State.COMPLETELY_AVAILABLE);
 
   expect(result[1][0] instanceof Image).to.be.true;
-  expect(result[1][1]).to.equal(loadImages.State.FAILED);
+  expect(result[1][1]).to.equal(loadImages.State.BROKEN);
 
   expect(result[2][0] instanceof Image).to.be.true;
-  expect(result[2][1]).to.equal(loadImages.State.SUCCESS);
+  expect(result[2][1]).to.equal(loadImages.State.COMPLETELY_AVAILABLE);
 
   expect(result[3][0] instanceof Image).to.be.true;
-  expect(result[3][1]).to.equal(loadImages.State.FAILED);
+  expect(result[3][1]).to.equal(loadImages.State.BROKEN);
 });
 
 it('should work with images src of which will be set later', async function() {
   const input = [inputFactory.validImg({ loadTime: 1000, srcDelay: 3000 })];
   const result = await expect(loadImages(input)).be.fulfilled;
-  expect(result[0][1]).to.equal(loadImages.State.SUCCESS);
+  expect(result[0][1]).to.equal(loadImages.State.COMPLETELY_AVAILABLE);
 });
 
 it('should work with images which is loading now', async function() {
   const input = [inputFactory.validImg({ loadTime: 3000 })];
   const result = await expect(loadImages(input)).be.fulfilled;
-  expect(result[0][1]).to.equal(loadImages.State.SUCCESS);
+  expect(result[0][1]).to.equal(loadImages.State.COMPLETELY_AVAILABLE);
 });
 
 it('should work with images which already loaded', async function() {
@@ -68,7 +68,7 @@ it('should work with images which already loaded', async function() {
   const result = await expect(loadImages([img])).be.fulfilled;
 
   expect(result[0][0] instanceof Image).to.be.true;
-  expect(result[0][1]).to.equal(loadImages.State.SUCCESS);
+  expect(result[0][1]).to.equal(loadImages.State.COMPLETELY_AVAILABLE);
 });
 
 it('should work with images which already failed', async function() {
@@ -82,14 +82,14 @@ it('should work with images which already failed', async function() {
   const result = await expect(loadImages([img])).be.rejected;
 
   expect(result[0][0] instanceof Image).to.be.true;
-  expect(result[0][1]).to.equal(loadImages.State.FAILED);
+  expect(result[0][1]).to.equal(loadImages.State.BROKEN);
 });
 
 it('should throw an error on try to access undefined State', function() {
   expect(() => loadImages.State.UNDEFINED_STATE).to.throw(Error, /not found/);
 });
 
-it.only('should pass a test with random images and delays', async function() {
+it('should pass a test with random images and delays', async function() {
   this.timeout(50000);
 
   const n = 100;
@@ -103,7 +103,7 @@ it.only('should pass a test with random images and delays', async function() {
 
   result.forEach(([, state], idx) => {
     const expectedState =
-      inputTypes[idx] === 'valid' ? loadImages.State.SUCCESS : loadImages.State.FAILED;
+      inputTypes[idx] === 'valid' ? loadImages.State.COMPLETELY_AVAILABLE : loadImages.State.BROKEN;
 
     expect(state).to.be.equal(expectedState);
   });

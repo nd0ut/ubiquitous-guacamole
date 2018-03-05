@@ -12,7 +12,7 @@ class RightSide extends Component {
         <div className="right-side__image-container">
           {this.props.images.map(([img, state], idx) => (
             <div key={idx} className="right-side__image-wrapper">
-              {state === loadImages.State.SUCCESS ? (
+              {state === loadImages.State.COMPLETELY_AVAILABLE ? (
                 <img className="right-side__image" src={img.src} alt=""/>
               ) : (
                 <div className="right-side__image right-side__image--failed">FAILED</div>
