@@ -1,21 +1,20 @@
-const StateEnum = {
+const createEnum = require('./createEnum');
+
+const State = createEnum({
+  UNAVAILABLE: 'unavailable',
+  PARTIALLY_AVAILABLE: 'partially_available',
   COMPLETELY_AVAILABLE: 'completely_available',
   BROKEN: 'broken'
-};
-
-const State = new Proxy(StateEnum, {
-  set: () => false,
-  get: (target, name) => {
-    if(target[name]) {
-      return target[name];
-    }
-
-    throw new Error(`State '${name}' not found.`);
-  }
 });
 
-type StateType = $Values<typeof StateEnum>;
-type ReturnItem = [HTMLImageElement, StateType];
+const ExportedState = createEnum({
+  COMPLETELY_AVAILABLE: State.COMPLETELY_AVAILABLE,
+  BROKEN: State.BROKEN
+});
+
+type StateType = $Values<typeof State>;
+type ExportedStateType = $Values<typeof ExportedState>;
+type ReturnValue = [HTMLImageElement, ExportedStateType];
 
 function isUnavailable(img: HTMLImageElement): boolean {
   return img.src === '' && img.complete;
@@ -33,6 +32,25 @@ function isBroken(img: HTMLImageElement): boolean {
   return img.src !== '' && img.complete && img.naturalWidth === 0 && img.naturalHeight === 0;
 }
 
+const stateCheckers = {
+  [State.UNAVAILABLE]: isUnavailable,
+  [State.PARTIALLY_AVAILABLE]: isPartiallyAvailable,
+  [State.COMPLETELY_AVAILABLE]: isCompletelyAvailable,
+  [State.BROKEN]: isBroken
+};
+
+function getImageState(img: HTMLImageElement): StateType {
+  for (const state of Object.keys(stateCheckers)) {
+    const checkState = stateCheckers[state];
+
+    if (checkState(img)) {
+      return state;
+    }
+  }
+
+  return State.BROKEN;
+}
+
 function normalizeInput(input: Array<string | HTMLImageElement>): HTMLImageElement[] {
   return input.map(item => {
     if (typeof item === 'string') {
@@ -46,23 +64,26 @@ function normalizeInput(input: Array<string | HTMLImageElement>): HTMLImageEleme
   });
 }
 
-async function waitForReady(img: HTMLImageElement): Promise<ReturnItem> {
+async function waitForReady(img: HTMLImageElement): Promise<ReturnValue> {
   return new Promise(resolve => {
-    if (isUnavailable(img) || isPartiallyAvailable(img)) {
-      img.addEventListener('load', () => resolve([img, State.COMPLETELY_AVAILABLE]), { once: true });
-      img.addEventListener('error', () => resolve([img, State.BROKEN]), { once: true });
-    } else if (isCompletelyAvailable(img)) {
-      resolve([img, State.COMPLETELY_AVAILABLE]);
-    } else if (isBroken(img)) {
-      resolve([img, State.BROKEN]);
+    const state = getImageState(img);
+
+    const resolveCompleted = () => resolve([img, State.COMPLETELY_AVAILABLE]);
+    const resolveBroken = () => resolve([img, State.BROKEN]);
+    const resolveCurrent = () => resolve([img, state]);
+
+    const listen = (e, fn) => img.addEventListener(e, fn, { once: true });
+
+    if ([State.PARTIALLY_AVAILABLE, State.UNAVAILABLE].includes(state)) {
+      listen('load', resolveCompleted);
+      listen('error', resolveBroken);
     } else {
-      console.warn('Unhandled HTMLImageElement state.');
-      resolve([img, State.BROKEN]);
+      resolveCurrent();
     }
   });
 }
 
-async function loadImages(input: Array<string | HTMLImageElement>): Promise<ReturnItem[]> {
+async function loadImages(input: Array<string | HTMLImageElement>): Promise<ReturnValue[]> {
   const images = normalizeInput(input);
   const waiters = images.map(waitForReady);
 
@@ -76,6 +97,6 @@ async function loadImages(input: Array<string | HTMLImageElement>): Promise<Retu
   }
 }
 
-loadImages.State = State;
+loadImages.State = ExportedState;
 
 module.exports = loadImages;
