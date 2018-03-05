@@ -34,8 +34,8 @@ function isLoading(img: HTMLImageElement): boolean {
 async function waitForReady(img: HTMLImageElement): Promise<ReturnItem> {
   return new Promise(resolve => {
     if (isNotStarted(img) || isLoading(img)) {
-      img.addEventListener('load', () => resolve([img, 'loaded']));
-      img.addEventListener('error', () => resolve([img, 'failed']));
+      img.addEventListener('load', () => resolve([img, 'loaded']), { once: true });
+      img.addEventListener('error', () => resolve([img, 'failed']), { once: true });
     } else if (isLoaded(img)) {
       resolve([img, 'loaded']);
     } else if (isFailed(img)) {
