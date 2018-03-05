@@ -27,23 +27,23 @@ it('should return images and it\'s states', async () => {
 
   expect(result).to.be.an('array');
   expect(result[0][0] instanceof Image).to.be.true;
-  expect(result[0][1]).to.equal('loaded');
+  expect(result[0][1]).to.equal(loadImages.State.SUCCESS);
   expect(result[1][0] instanceof Image).to.be.true;
-  expect(result[1][1]).to.equal('failed');
+  expect(result[1][1]).to.equal(loadImages.State.FAILED);
   expect(result[2][0] instanceof Image).to.be.true;
-  expect(result[2][1]).to.equal('loaded');
+  expect(result[2][1]).to.equal(loadImages.State.SUCCESS);
 });
 
 it('should work with images src of which will be set later', async () => {
   const input = [inputFactory.validImg(1000, 3000)];
   const result = await expect(loadImages(input)).be.fulfilled;
-  expect(result[0][1]).to.equal('loaded');
+  expect(result[0][1]).to.equal(loadImages.State.SUCCESS);
 });
 
 it('should work with images which is loading now', async () => {
   const input = [inputFactory.validImg(3000, 0)];
   const result = await expect(loadImages(input)).be.fulfilled;
-  expect(result[0][1]).to.equal('loaded');
+  expect(result[0][1]).to.equal(loadImages.State.SUCCESS);
 });
 
 it('should work with images which already loaded', async () => {
@@ -57,5 +57,9 @@ it('should work with images which already loaded', async () => {
   const input = [img];
   const result = await expect(loadImages(input)).be.fulfilled;
   expect(result[0][0] instanceof Image).to.be.true;
-  expect(result[0][1]).to.equal('loaded');
+  expect(result[0][1]).to.equal(loadImages.State.SUCCESS);
+});
+
+it('should throw an error on try to access undefined State', () => {
+  expect(() => loadImages.State.UNDEFINED_STATE).to.throw(Error, /not found/);
 });

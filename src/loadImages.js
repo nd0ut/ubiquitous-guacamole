@@ -1,5 +1,21 @@
-type State = 'loaded' | 'failed';
-type ReturnItem = [HTMLImageElement, State];
+const StateEnum = {
+  SUCCESS: Symbol('success'),
+  FAILED: Symbol('failed')
+};
+
+const State = new Proxy(StateEnum, {
+  set: () => false,
+  get: (target, name) => {
+    if(target[name]) {
+      return target[name];
+    }
+
+    throw new Error(`State '${name}' not found.`);
+  }
+});
+
+type StateType = $Values<typeof StateEnum>;
+type ReturnItem = [HTMLImageElement, StateType];
 
 function isNotStarted(img: HTMLImageElement): boolean {
   return img.src === '' && img.complete;
@@ -33,25 +49,30 @@ function normalizeInput(input: Array<string | HTMLImageElement>): HTMLImageEleme
 async function waitForReady(img: HTMLImageElement): Promise<ReturnItem> {
   return new Promise(resolve => {
     if (isNotStarted(img) || isLoading(img)) {
-      img.addEventListener('load', () => resolve([img, 'loaded']), { once: true });
-      img.addEventListener('error', () => resolve([img, 'failed']), { once: true });
+      img.addEventListener('load', () => resolve([img, State.SUCCESS]), { once: true });
+      img.addEventListener('error', () => resolve([img, State.FAILED]), { once: true });
     } else if (isLoaded(img)) {
-      resolve([img, 'loaded']);
+      resolve([img, State.SUCCESS]);
     } else if (isFailed(img)) {
-      resolve([img, 'failed']);
+      resolve([img, State.FAILED]);
     } else {
       console.warn('Unhandled HTMLImageElement state.');
-      resolve([img, 'failed']);
+      resolve([img, State.FAILED]);
     }
   });
 }
-
+/**
+ *
+ *
+ * @param {(Array<string | HTMLImageElement>)} input
+ * @returns {Promise<ReturnItem[]>}
+ */
 async function loadImages(input: Array<string | HTMLImageElement>): Promise<ReturnItem[]> {
   const images = normalizeInput(input);
   const waiters = images.map(waitForReady);
 
   const returnItems = await Promise.all(waiters);
-  const anyFailed = returnItems.some(item => item[1] === 'failed');
+  const anyFailed = returnItems.some(item => item[1] === State.FAILED);
 
   if (anyFailed) {
     throw returnItems;
@@ -59,5 +80,7 @@ async function loadImages(input: Array<string | HTMLImageElement>): Promise<Retu
     return returnItems;
   }
 }
+
+loadImages.State = State;
 
 module.exports = loadImages;

@@ -1,4 +1,5 @@
 import './RightSide.css';
+import loadImages from '@nd0ut/ubiquitous-guacamole';
 
 import React, { Component } from 'react';
 import { Spin } from 'antd';
@@ -11,7 +12,7 @@ class RightSide extends Component {
         <div className="right-side__image-container">
           {this.props.images.map(([img, state], idx) => (
             <div key={idx} className="right-side__image-wrapper">
-              {state === 'loaded' ? (
+              {state === loadImages.State.SUCCESS ? (
                 <img className="right-side__image" src={img.src} alt=""/>
               ) : (
                 <div className="right-side__image right-side__image--failed">FAILED</div>
