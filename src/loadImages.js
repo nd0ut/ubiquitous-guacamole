@@ -61,12 +61,7 @@ async function waitForReady(img: HTMLImageElement): Promise<ReturnItem> {
     }
   });
 }
-/**
- *
- *
- * @param {(Array<string | HTMLImageElement>)} input
- * @returns {Promise<ReturnItem[]>}
- */
+
 async function loadImages(input: Array<string | HTMLImageElement>): Promise<ReturnItem[]> {
   const images = normalizeInput(input);
   const waiters = images.map(waitForReady);
