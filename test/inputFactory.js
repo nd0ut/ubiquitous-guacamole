@@ -8,7 +8,7 @@ function validUrl(loadTime = 1000) {
   return baseUrl + path;
 }
 
-function invalidUrl(loadTime = 1000, type) {
+function invalidUrl(loadTime = 1000, type = 'not_found') {
   const path = getPath(type, loadTime);
   return baseUrl + path;
 }
@@ -27,9 +27,26 @@ function invalidImg(loadTime = 1000, srcDelay = 0, type) {
   return img;
 }
 
+function rand(min, max) {
+  return Math.floor(Math.random() * (max + 1 - min)) + min;
+}
+
+function random() {
+  const creators = [validUrl, invalidUrl, validImg, invalidImg];
+  const idx = rand(0, creators.length - 1);
+  const randCreator = creators[idx];
+
+  const loadTime = rand(0, 5000);
+  const srcDelay = rand(0, 5000);
+  const type = ['not_found', 'bad'][rand(0, 2)];
+
+  return randCreator(loadTime, srcDelay, type);
+}
+
 module.exports = {
   validUrl,
   invalidUrl,
   validImg,
-  invalidImg
+  invalidImg,
+  random
 };
