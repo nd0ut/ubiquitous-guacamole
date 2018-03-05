@@ -3,28 +3,31 @@ let counter = 0;
 
 const getPath = (type, delay) => `/image/${type}/${++counter}.png?delay=${delay}`;
 
-function validUrl(loadTime = 1000) {
-  const path = getPath('valid', loadTime);
-  return baseUrl + path;
+function url({ loadTime, type }) {
+  return baseUrl + getPath(type, loadTime);
 }
 
-function invalidUrl(loadTime = 1000, type = 'not_found') {
-  const path = getPath(type, loadTime);
-  return baseUrl + path;
+function validUrl({ loadTime = 1000 } = {}) {
+  return url({ loadTime, type: 'valid' });
 }
 
-function validImg(loadTime = 1000, srcDelay = 0) {
-  const url = validUrl(loadTime);
+function invalidUrl({ loadTime = 1000 } = {}) {
+  return url({ loadTime, type: 'not_found' });
+}
+
+function image({ loadTime, srcDelay, type }) {
+  const path = url({ loadTime, type });
   const img = new Image();
-  setTimeout(() => (img.src = url), srcDelay);
+  setTimeout(() => (img.src = path), srcDelay);
   return img;
 }
 
-function invalidImg(loadTime = 1000, srcDelay = 0, type) {
-  const url = invalidUrl(type, loadTime);
-  const img = new Image();
-  setTimeout(() => (img.src = url), srcDelay);
-  return img;
+function validImg({ loadTime = 1000, srcDelay = 0 } = {}) {
+  return image({ loadTime, srcDelay, type: 'valid' });
+}
+
+function invalidImg({ loadTime = 1000, srcDelay = 0 } = {}) {
+  return image({ loadTime, srcDelay, type: 'not_found' });
 }
 
 function rand(min, max) {
@@ -32,15 +35,18 @@ function rand(min, max) {
 }
 
 function random() {
-  const creators = [validUrl, invalidUrl, validImg, invalidImg];
+  const creators = [image, url];
   const idx = rand(0, creators.length - 1);
   const randCreator = creators[idx];
 
   const loadTime = rand(0, 5000);
   const srcDelay = rand(0, 5000);
-  const type = ['not_found', 'bad'][rand(0, 2)];
+  const type = ['not_found', 'bad', 'valid'][rand(0, 3)];
 
-  return randCreator(loadTime, srcDelay, type);
+  return {
+    input: randCreator({ loadTime, srcDelay, type }),
+    type
+  };
 }
 
 module.exports = {
