@@ -13,7 +13,7 @@
 
 [Demo](https://nd0ut.github.io/ubiquitous-guacamole/) 
 
-[![Edit ubiquitous-guacamole-demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/nd0ut/ubiquitous-guacamole/tree/master/demo)
+[![Edit ubiquitous-guacamole-demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/nd0ut/ubiquitous-guacamole/tree/master/demo?module=%2Fsrc%2Fcomponents%2FApp.js&view=editor)
 
 ## Install
 Just run
