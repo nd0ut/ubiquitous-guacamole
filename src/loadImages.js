@@ -16,6 +16,19 @@ type StateType = $Values<typeof State>;
 type ExportedStateType = $Values<typeof ExportedState>;
 type ReturnValue = [HTMLImageElement, ExportedStateType];
 
+function normalizeInput(input: Array<string | HTMLImageElement>): HTMLImageElement[] {
+  return input.map(item => {
+    if (typeof item === 'string') {
+      const url = item;
+      const img = new Image();
+      img.src = url;
+      return img;
+    }
+
+    return item;
+  });
+}
+
 function isUnavailable(img: HTMLImageElement): boolean {
   return img.src === '' && img.complete;
 }
@@ -51,17 +64,22 @@ function getImageState(img: HTMLImageElement): StateType {
   return State.BROKEN;
 }
 
-function normalizeInput(input: Array<string | HTMLImageElement>): HTMLImageElement[] {
-  return input.map(item => {
-    if (typeof item === 'string') {
-      const url = item;
-      const img = new Image();
-      img.src = url;
-      return img;
-    }
+function listenToImage(
+  img: HTMLImageElement,
+  { onLoad, onError }: { onLoad: () => void, onError: () => void }
+): void {
+  function loadHandler() {
+    onLoad();
+    img.removeEventListener('error', onError);
+  }
 
-    return item;
-  });
+  function errorHandler() {
+    onError();
+    img.removeEventListener('load', onLoad);
+  }
+
+  img.addEventListener('load', loadHandler, { once: true });
+  img.addEventListener('error', errorHandler, { once: true });
 }
 
 async function waitForReady(img: HTMLImageElement): Promise<ReturnValue> {
@@ -72,11 +90,8 @@ async function waitForReady(img: HTMLImageElement): Promise<ReturnValue> {
     const resolveBroken = () => resolve([img, State.BROKEN]);
     const resolveCurrent = () => resolve([img, state]);
 
-    const listen = (e, fn) => img.addEventListener(e, fn, { once: true });
-
     if ([State.PARTIALLY_AVAILABLE, State.UNAVAILABLE].includes(state)) {
-      listen('load', resolveCompleted);
-      listen('error', resolveBroken);
+      listenToImage(img, { onLoad: resolveCompleted, onError: resolveBroken });
     } else {
       resolveCurrent();
     }
