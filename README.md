@@ -22,7 +22,7 @@ npm i @nd0ut/ubiquitous-guacamole --save
 ```
 or
 ```sh
-yarn add @nd0ut/ubiquitous-guacamole --save
+yarn add @nd0ut/ubiquitous-guacamole
 ```
 
 ## Usage
