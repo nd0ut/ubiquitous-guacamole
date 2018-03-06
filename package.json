@@ -4,7 +4,6 @@
   "description": "",
   "main": "dist/ubiquitous-guacamole.cjs.js",
   "module": "dist/ubiquitous-guacamole.esm.js",
-  "browser": "dist/ubiquitous-guacamole.umd.js",
   "scripts": {
     "build": "rollup -c",
     "prebuild": "npm run flow && npm run lint",
