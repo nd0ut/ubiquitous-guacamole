@@ -22,7 +22,7 @@ npm i @nd0ut/ubiquitous-guacamole --save
 ```
 or
 ```sh
-yarn add @nd0ut/ubiquitous-guacamole --save
+yarn add @nd0ut/ubiquitous-guacamole
 ```
 
 ## Usage
@@ -43,6 +43,7 @@ loadImages(['urls', 'or', 'HTMLImageElements'])
     state === loadImages.State.COMPLETELY_AVAILABLE || state === loadImages.State.BROKEN
   });
 ```
+HTMLImageElement can be in any state (according to [w3c spec](https://dev.w3.org/html5/spec-preview/the-img-element.html#img-none)), but keep in mind that if you never set the src property then the promise will never be resolved or rejected. There is no any timeout on this.
 
 ## API
 ### loadImages (default export)
