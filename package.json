@@ -7,7 +7,7 @@
   "browser": "dist/ubiquitous-guacamole.umd.js",
   "scripts": {
     "build": "rollup -c",
-    "prebuild": "npm run flow && npm run lint && npm run test",
+    "prebuild": "npm run flow && npm run lint",
     "dev": "rollup -c -w",
     "flow": "./node_modules/.bin/flow src",
     "test": "karma start --single-run",
