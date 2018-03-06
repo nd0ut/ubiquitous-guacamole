@@ -1,3 +1,3 @@
-const loadImages = require('./loadImages');
+import loadImages from './loadImages';
 
-module.exports = loadImages;
+export default loadImages;

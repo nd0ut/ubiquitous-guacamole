@@ -1,4 +1,4 @@
-const createEnum = require('./createEnum');
+import createEnum from './createEnum';
 
 const State = createEnum({
   UNAVAILABLE: 'unavailable',
@@ -99,4 +99,4 @@ async function loadImages(input: Array<string | HTMLImageElement>): Promise<Retu
 
 loadImages.State = ExportedState;
 
-module.exports = loadImages;
+export default loadImages;

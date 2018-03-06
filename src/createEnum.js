@@ -1,4 +1,4 @@
-module.exports = function createEnum<T: {}>(map: T): T {
+export default function createEnum<T: {}>(map: T): T {
   return new Proxy(map, {
     set: () => false,
     get: (target, name) => {
